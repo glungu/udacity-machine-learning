@@ -13342,7 +13342,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Select three indices of your choice you wish to sample from the dataset</span>
@@ -13499,7 +13499,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
@@ -13513,7 +13513,7 @@ div#notebook {
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Grocery&#39;</span><span class="p">],</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
 
 <span class="c1"># TODO: Create a decision tree regressor and fit it to the training set</span>
-<span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">()</span>
+<span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
 <span class="n">regressor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
 <span class="c1"># TODO: Report the score of the prediction using the testing set</span>
@@ -13535,7 +13535,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Score: 0.5171099623232734
+<pre>Score: 0.5186361171873682
 </pre>
 </div>
 </div>
@@ -13563,8 +13563,8 @@ div#notebook {
 <p><strong>Answer:</strong></p>
 <ul>
 <li>Attempt to predict: 'Grocery'</li>
-<li>Predicted score: 0.517</li>
-<li>With R2 of 0.517 we can say that half of this feature's variance can be explained by other features. But, what about the other half? The other half, I guess, is containing some valuable information that only this feature can provide, so I would say this feature does have some relevance of it's own, even though half of its variance can be predicted by other features (it is definitely not completely unrelated, because R2 of 0.5 is not small at all). </li>
+<li>Predicted score: 0.518</li>
+<li>With R2 of 0.518 we can say that half of this feature's variance can be explained by other features. But, what about the other half? The other half, I guess, is containing some valuable information that only this feature can provide, so I would say this feature does have some relevance of it's own, even though half of its variance can be predicted by other features (it is definitely not completely unrelated, because R2 of 0.5 is not small at all). </li>
 </ul>
 <p>It is also very interesting observation by itself, that 50% of the Grocery spending patterns can be explained by spending patterns of other categories, like Milk, Delicatessen etc.</p>
 
@@ -13581,7 +13581,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Produce a scatter matrix for each pair of features in the data</span>
@@ -13637,7 +13637,7 @@ div#notebook {
 <li>Data Distribution: All features seem to have some sort of skewed and truncated normal distribution (truncated for non-existing negative values) judging from distribution graphs located over diagonal of scatter matrix. </li>
 <li>Outliers: There are some outliers, for example with Fresh/Frozen - Frozen seems to have a value at certain (low) level, almost independent of Fresh. Yet there are a couple of points with way too high value of Frozen. Actually these two points may have significantly increased the mean for Frozen.</li>
 <li>Significant degree of correlation: previously selected feature of Grocery (as we already know) significantly correlates with other features. But, it turns out that this high correlation is mostly due to two features: Milk and Detergents_Paper. This makes sense - these three extremely often are bought together. Not surprising then that they correlate very strongly. Actually, they exhibit strong correlation if we compare all three pairs of them (Milk-Grocery, Milk-Detergent, Grocery-Detergent) </li>
-<li>So, yes, this confirms suspicion about Grocery feature, but still hard to evaluate whether we can throw it away altogether. R2 = 0.517 would be considered a moderate but not substantial (<a href="https://www.researchgate.net/post/What_is_the_acceptable_R-squared_in_the_information_system_research_Can_you_provide_some_references">https://www.researchgate.net/post/What_is_the_acceptable_R-squared_in_the_information_system_research_Can_you_provide_some_references</a>) correlation. But, if we wanted to simplify model or reduce latency, I guess we could try to throw away 2 of these three features (actually, I would keep Grocery and throw away Milk and Detergent).</li>
+<li>So, yes, this confirms suspicion about Grocery feature, but still hard to evaluate whether we can throw it away altogether. R2 = 0.518 would be considered a moderate but not substantial (<a href="https://www.researchgate.net/post/What_is_the_acceptable_R-squared_in_the_information_system_research_Can_you_provide_some_references">https://www.researchgate.net/post/What_is_the_acceptable_R-squared_in_the_information_system_research_Can_you_provide_some_references</a>) correlation. But, if we wanted to simplify model or reduce latency, I guess we could try to throw away 2 of these three features (actually, I would keep Grocery and throw away Milk and Detergent).</li>
 </ul>
 
 </div>
@@ -13666,7 +13666,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Scale the data using the natural logarithm</span>
@@ -13717,7 +13717,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the log-transformed sample data</span>
@@ -13823,7 +13823,7 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_outliers</span> <span class="o">=</span> <span class="p">[]</span>
@@ -13877,6 +13877,18 @@ Once you have performed this implementation, the dataset will be stored in the v
 <div class="output_subarea output_stream output_stdout output_text">
 <pre># Outliers for the feature &#39;Fresh: 16. Indices: [ 65  66  81  95  96 128 171 193 218 304 305 338 353 355 357 412]
 Data points considered outliers for the feature &#39;Fresh&#39;:
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\users\glungu\pythonjupyter\lib\site-packages\numpy\core\fromnumeric.py:56: FutureWarning: Series.nonzero() is deprecated and will be removed in a future version.Use Series.to_numpy().nonzero() instead
+  return getattr(obj, method)(*args, **kwds)
 </pre>
 </div>
 </div>
@@ -14687,13 +14699,13 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="k">import</span> <span class="n">PCA</span>
 
 <span class="c1"># TODO: Apply PCA by fitting the good data with the same number of dimensions as features</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
 <span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">good_data</span><span class="p">)</span>
 
 <span class="c1"># TODO: Transform log_samples using the PCA fit above</span>
@@ -14767,7 +14779,7 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display sample log-data after having a PCA transformation applied</span>
@@ -14870,7 +14882,7 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Apply PCA by fitting the good data with only two dimensions</span>
@@ -14902,7 +14914,7 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display sample log-data after applying PCA transformation in two dimensions</span>
@@ -14984,7 +14996,7 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a biplot</span>
@@ -15001,13 +15013,13 @@ Size: 42
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[70]:</div>
+    <div class="prompt output_prompt">Out[13]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1c2ab668&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1e07ac09da0&gt;</pre>
 </div>
 
 </div>
@@ -15095,7 +15107,7 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="k">import</span> <span class="n">GaussianMixture</span>
@@ -15135,7 +15147,7 @@ Size: 42
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Silhuette score: 0.35930737589589534
+<pre>Silhuette score: 0.3593073758958954
 </pre>
 </div>
 </div>
@@ -15162,6 +15174,7 @@ Size: 42
 <ul>
 <li>I tried 2 to 20</li>
 <li>2 and 3 clusters seem to produce the best silhuette scores: 0.447 and 0.359. Although there is local maxima at 14, with score 0.348. I guess there are only few (2-3) big shopping patterns, and if diving into smaller sub-patterns, we may consider 14.</li>
+<li>The highest score is at 2 clusters, so obvious choice would be 2, but I think 2 provides like 2 big shopping patterns. Intuitively, we understand that there must be more shopping sub-patterns and the more of them we extract from the data, the more value we bring from our analysis (in my opinion). Following this logic, 14 would be a very interesting choice, but that would take just too much time to analize, and besides maybe it produces too small clusters to draw any conclusion (since we do not have too much data). So, I chose 3 as a more safe number, yet trying to extract a little more information from this data. I guess, in the end it did not prove wrong, as we were able to find two subpatterns in one of the big 2 patterns.</li>
 </ul>
 
 </div>
@@ -15177,7 +15190,7 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[125]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the results of the clustering from implementation</span>
@@ -15226,7 +15239,7 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Inverse transform the centers</span>
@@ -15421,12 +15434,19 @@ Size: 42
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the predictions</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_preds</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample point&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;predicted to be in Cluster&quot;</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+    
+<span class="c1"># check L1 distance to centroids</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Checking L1 distances...&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_preds</span><span class="p">):</span>
+    <span class="n">l1distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">center</span><span class="p">))</span> <span class="k">for</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">true_centers</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample point&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;L1 distances to clusters:&quot;</span><span class="p">,</span> <span class="n">l1distances</span><span class="p">,</span> <span class="s2">&quot;min distance to Cluster:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">l1distances</span><span class="p">))</span>
+    
 </pre></div>
 
     </div>
@@ -15446,6 +15466,10 @@ Size: 42
 <pre>Sample point 0 predicted to be in Cluster 1
 Sample point 1 predicted to be in Cluster 1
 Sample point 2 predicted to be in Cluster 1
+Checking L1 distances...
+Sample point 0 L1 distances to clusters: [19112.0, 14923.0, 15230.0] min distance to Cluster: 1
+Sample point 1 L1 distances to clusters: [22760.0, 22289.0, 33500.0] min distance to Cluster: 1
+Sample point 2 L1 distances to clusters: [47581.0, 15152.0, 37291.0] min distance to Cluster: 1
 </pre>
 </div>
 </div>
@@ -15459,6 +15483,7 @@ Sample point 2 predicted to be in Cluster 1
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
 Actually, all three points fell into Segment 1, which is from my intuition above, generalizes to a Grocery Store.</p>
+<p>From the output above, we took L1 distance (this is simply adding up absolute values of differences between point value and centroid value per product category), and turns out the minimal value always points to a cluster selected with scaling+clustering algorithm. Note that L1 distance was selected in this case since it simply takes into account total differences as they are.</p>
 
 </div>
 </div>
@@ -15494,9 +15519,9 @@ Actually, all three points fell into Segment 1, which is from my intuition above
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-Most affected with such change would be those that cannot store products for 2-3 days (not enough or none refrigerators) and those sensitive to food freshness (restaurants and eateries).</p>
-<p>My suggestion is to exclude Segment 0 (Restaurants) and Segment 2 (Small eateries) from this change in delivery, because these are sensitive to products' freshness, while most Grocery Stores could be fine with such change.</p>
-<p>Although, of course, we cannot say all grocery stores are the same. Some may not have enough refrigerators to keep products for 2-3 days, for example.  Also, some large restaurants have freezers and refrigerators so may be ok with the change, but only for frozen, and not other categories.</p>
+The wholesale distributor can show a form offering two delivery options (old and new) with each order. This form can be shown to a control group (large enough to represent all customers, and containing equal customers from each segment, since we expect segmented results). So control group can be obtained by selecting min(cluster_sizes) from each segment. This feedback is easy and non-disruptive (since they have an option to stay with old scheme), so we can show it as many customers as possible.</p>
+<p>After we obtain our results, and if they are segmented as we expect (see next paragraph on that), we can test them on a small subset of customers from those Segments, where positive response rate was high. If works well, apply it to all customers in those segments. And I would not change anything with other Segments (or, do further analysis on those particular segments).</p>
+<p>Now, why we expect segmented results. I would expect higher positive answer rate in Segment 1 (Grocery Stores), and much lower positive rate in Segment 0 (Restaurants) and Segment 2 (Small eateries), because most affected with such change would be those that cannot store products for 2-3 days (not enough or none refrigerators) and those sensitive to food freshness (restaurants and eateries). Grocery stores usually have refrigerators, freezers and other equipment that allows them to store products for a couple of days (simply because of the retail nature of their buisiness), so I would expect them to be less sensitive to such change. So, with current segments that we have, we may end up applying the delivery change only in Segment 1 ('Grocery Store').</p>
 
 </div>
 </div>
