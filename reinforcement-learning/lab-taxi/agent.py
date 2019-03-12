@@ -3,7 +3,7 @@ from collections import defaultdict
 
 class Agent:
 
-    # Best result: 9.354
+    # Best result: 9.364
 
     def __init__(self, nA=6):
         """ Initialize agent.
