@@ -3,6 +3,8 @@ from collections import defaultdict
 
 class Agent:
 
+    # Best result: 9.354
+
     def __init__(self, nA=6):
         """ Initialize agent.
 
@@ -72,4 +74,4 @@ class Agent:
 
         if done:
             self.episode_num += 1
-            self.epsilon = 1.0/self.episode_num if 1.0/self.episode_num > 0.005 else 0.005
+            self.epsilon = 1.0/self.episode_num if 1.0/self.episode_num > 0.001 else 0.001
