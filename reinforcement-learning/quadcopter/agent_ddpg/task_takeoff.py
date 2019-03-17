@@ -30,9 +30,8 @@ class TaskTakeoff():
         """Uses current pose of sim to return reward."""
         xy_diff = abs(self.sim.pose[0]-self.target_pos[0]) + abs(self.sim.pose[1]-self.target_pos[1])
         z_diff = abs(self.sim.pose[2] - self.target_pos[2])
-        z_reward = 0.5 if self.sim.pose[2] > 0.0 else -0.5
         # reward = 1.-.3*(abs(self.sim.pose[:3] - self.target_pos)).sum()
-        reward = 1. - (.5*xy_diff) - (.5*z_diff) + z_reward
+        reward = 1. - .5*xy_diff - 1.5*z_diff
         return reward
 
     def step(self, rotor_speeds):
