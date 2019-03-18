@@ -34,7 +34,7 @@ class AgentDDPG():
         # Noise process
         self.exploration_mu = 0
         self.exploration_theta = 0.15
-        self.exploration_sigma = 0.2
+        self.exploration_sigma = 0.2 # 0.2
         self.noise = OUNoise(self.action_size, self.exploration_mu, self.exploration_theta, self.exploration_sigma)
 
         # Replay memory
@@ -44,7 +44,7 @@ class AgentDDPG():
 
         # Algorithm parameters
         self.gamma = 0.99  # discount factor
-        self.tau = 0.05  # for soft update of target parameters (0.01)
+        self.tau = 0.01  # for soft update of target parameters (0.01)
 
         ### Keep track of total and average reward per episode
         self.total_reward = 0.0
@@ -86,6 +86,8 @@ class AgentDDPG():
 
     def act(self, state):
         """Returns actions for given state(s) as per current policy."""
+        # if self.step_count < self.batch_size:
+        #     return [400.0, 400.0, 400.0, 400.0]
         state = np.reshape(state, [-1, self.state_size])
         action = self.actor_local.model.predict(state)[0]
         return list(action + self.noise.sample())  # add some noise for exploration

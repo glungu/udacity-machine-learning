@@ -6,11 +6,11 @@ import pandas as pd
 from agent_ddpg.ddpg_agent import AgentDDPG
 from agent_ddpg.task_takeoff import TaskTakeoff
 
-num_episodes = 10
-init_pos = np.array([0., 0., 0., 0., 0., 0.])
-init_v = np.array([0., 0., 0.])
+num_episodes = 1000
+init_pos = np.array([0., 0., 150., 0., 0., 0.])
+init_v = np.array([0., 0., 1.])
 init_angle_v = np.array([0., 0., 0.])
-target_pos = np.array([0., 0., 10.])
+target_pos = np.array([0., 0., 200.])
 
 task = TaskTakeoff(init_pose=init_pos, init_velocities=init_v, 
         init_angle_velocities=init_angle_v, target_pos=target_pos)
@@ -45,8 +45,8 @@ for i_episode in range(1, num_episodes+1):
         writer.writerow(rowdata)
 
         if done:
-            print("\rEpisode = {:4d}, R_average = {:7.3f}, Position: [{:7.3f},{:7.3f},{:7.3f}]".format(
-                i_episode, agent.average_reward, task.sim.pose[0], task.sim.pose[1], task.sim.pose[2]))
+            print("\rEpisode = {:4d}, R_average = {:7.3f}, R_total = {:7.3f}, Position: [{:7.3f},{:7.3f},{:7.3f}]".format(
+                i_episode, agent.average_reward, agent.total_reward, task.sim.pose[0], task.sim.pose[1], task.sim.pose[2]))
             break
 
     csvfile.close()

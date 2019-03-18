@@ -28,10 +28,18 @@ class TaskTakeoff():
 
     def get_reward(self):
         """Uses current pose of sim to return reward."""
-        xy_diff = abs(self.sim.pose[0]-self.target_pos[0]) + abs(self.sim.pose[1]-self.target_pos[1])
-        z_diff = abs(self.sim.pose[2] - self.target_pos[2])
+        xy_diff = abs(self.sim.pose[0]-self.target_pos[0])**2 + abs(self.sim.pose[1]-self.target_pos[1])**2
+        z_diff = abs(self.sim.pose[2] - self.target_pos[2])**2
+        xy_reward = -100.0 if xy_diff > 5.0 else 0.0
+        z_reward = -100.0 if z_diff > 1.0 else 0.0
+        v_x_reward = -100.0 if abs(self.sim.v[0]) > 1.0 else 0.0
+        v_y_reward = -100.0 if abs(self.sim.v[1]) > 1.0 else 0.0
+        va_x_reward = -100.0 if abs(self.sim.angular_v[0]) > 1.0 else 0.0
+        va_y_reward = -100.0 if abs(self.sim.angular_v[1]) > 1.0 else 0.0
+        va_z_reward = -100.0 if abs(self.sim.angular_v[2]) > 1.0 else 0.0
+        early_done_reward = -100 if self.sim.done and self.sim.runtime > self.sim.time else 0.0
         # reward = 1.-.3*(abs(self.sim.pose[:3] - self.target_pos)).sum()
-        reward = 1. - .5*xy_diff - 1.5*z_diff
+        reward = 1. + xy_reward + z_reward + v_x_reward + v_y_reward + va_x_reward + va_y_reward + va_z_reward + early_done_reward
         return reward
 
     def step(self, rotor_speeds):
