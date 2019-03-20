@@ -34,7 +34,7 @@ class TaskTakeoff():
 
         if self.sim.done and self.sim.runtime > self.sim.time:
             reward -= 100.
-        if dist < 3.0:
+        if dist < 5.0:
             reward += 100.
             self.success = True
             self.sim.done = True
