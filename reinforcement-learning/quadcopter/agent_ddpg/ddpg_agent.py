@@ -34,7 +34,7 @@ class AgentDDPG():
         # Noise process
         self.exploration_mu = 0
         self.exploration_theta = 0.15
-        self.exploration_sigma = 0.9 # 0.2
+        self.exploration_sigma = 0.3 # 0.2
         self.noise = OUNoise(self.action_size, self.exploration_mu, self.exploration_theta, self.exploration_sigma)
 
         # Replay memory
@@ -57,7 +57,7 @@ class AgentDDPG():
         ### reset reward counts
         self.total_reward = 0.0
         self.average_reward = 0.0
-        self.count = 0
+        self.step_count = 0
 
         self.noise.reset()
         state = self.task.reset()

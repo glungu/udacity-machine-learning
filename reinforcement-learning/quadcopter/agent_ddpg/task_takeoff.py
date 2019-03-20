@@ -29,15 +29,16 @@ class TaskTakeoff():
     def get_reward(self):
         """Uses current pose of sim to return reward."""
         # reward = 1.-.3*(abs(self.sim.pose[:3] - self.target_pos)).sum()
-        dist = np.linalg.norm(self.sim.pose[:3] - self.target_pos)**2
-        punish_crash = -1000000. if self.sim.done and self.sim.runtime > self.sim.time else 0.
-        reward_target = 0.
-        if dist < 1.0:
-            reward_target = 1000000
+        dist = np.linalg.norm(self.sim.pose[:3] - self.target_pos)
+        reward = np.tanh(2.0-dist/150.0)
+
+        if self.sim.done and self.sim.runtime > self.sim.time:
+            reward -= 100.
+        if dist < 3.0:
+            reward += 100.
             self.success = True
             self.sim.done = True
 
-        reward = 1. - dist + punish_crash + reward_target
         return reward
 
     def step(self, rotor_speeds):
