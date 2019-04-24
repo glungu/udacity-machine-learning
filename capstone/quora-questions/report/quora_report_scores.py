@@ -20,6 +20,6 @@ def plot_scores(df, start_index, filepath_output):
 
 
 
-df = pd.read_csv('my_submissions.csv', sep='\s*,\s*')
-plot_scores(df, 0, 'my_submissions_all.png')
-plot_scores(df, 11, 'my_submissions_latest.png')
+df = pd.read_csv('data/scores.csv', sep='\s*,\s*')
+plot_scores(df, 0, 'scores_all.png')
+plot_scores(df, 11, 'scores_latest.png')
