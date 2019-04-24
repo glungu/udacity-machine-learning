@@ -1,0 +1,42 @@
+Num, Name, Time, Source, Private Score, Public Score
+42, preprocessing & embeddings(version 27/27), just now by Gena, LSTM/GRU, 0.70386, 0.69614
+41, preprocessing & embeddings(version 26/26), just now by Gena, GRU, 0.70356, 0.69531
+40, preprocessing & embeddings(version 25/25), 14 hours ago by Gena, 65 maxlen LSTM 10 models, 0.70557, 0.69705
+39, preprocessing & embeddings(version 24/25), 18 hours ago by Gena, GRU, 0.70227, 0.69712
+38, preprocessing & embeddings(version 23/25), a day ago by Gena, LSTM/GRU, 0.70311, 0.69495
+37, preprocessing & embeddings(version 20/25), 2 days ago by Gena, dict 120000 glove/para/wiki 9 models, 0.70342, 0.69344
+36, preprocessing & embeddings(version 18/25), 2 days ago by Gena, dict 95000 wiki only 3 early, 0.68991, 0.68296
+35, preprocessing & embeddings(version 16/25), 2 days ago by Gena, 10 models LSTM, 0.69907, 0.68905
+34, preprocessing & embeddings(version 14/25), 3 days ago by Gena, 11 models add wiki, 0.70096, 0.68832
+33, preprocessing & embeddings(version 12/25), 3 days ago by Gena, 75 maxlen 12 models GRU, 0.70055, 0.69150
+32, preprocessing & embeddings(version 11/25), 3 days ago by Gena, 80 maxlen 11 models, 0.70209, 0.69071
+31, preprocessing & embeddings(version 10/25), 3 days ago by Gena, 75 maxlen thresh 0.33, 0.70246, 0.69667
+30, preprocessing & embeddings(version 9/25), 4 days ago by Gena, 2 earlystop (12) thresh 0.3, 0.69893, 0.69057
+29, preprocessing & embeddings(version 8/25), 4 days ago by Gena, dict 120000 1 earlystop (12), 0.70066, 0.69150
+28, preprocessing & embeddings(version 7/25), 4 days ago by Gena, dict 120000 2 earlystop (12), 0.70231, 0.69313
+27, preprocessing & embeddings(version 6/25), 4 days ago by Gena, dict 100000 2 earlystop_clone (10/10), 0.69982, 0.68872
+26, preprocessing & embeddings(version 5/25), 4 days ago by Gena, dict 100000 2 earlystop_clone (7/12), 0.69660, 0.68658
+25, preprocessing & embeddings(version 3/25), 5 days ago by Gena, dict 100000 -> 120000, 0.70061, 0.69182
+24, preprocessing & embeddings(version 2/25), 5 days ago by Gena, text prep train & test, 0.70144, 0.68988
+23, preprocessing & embeddings(version 1/25), 5 days ago by Gena, text prep training only, 0.69961, 0.69116
+22, quora-embeddings(version 12/17), 8 days ago by Gena, 30 maxlen 80000 dict 2 earlystop, 0.69546, 0.69142
+21, quora-embeddings(version 10/17), 8 days ago by Gena, 5 epochs 10 models 70 maxlen 100000 dict, 0.69948, 0.69182
+20, quora-embeddings(version 8/17), 8 days ago by Gena, 4 epochs 10 models, 0.69459, 0.68477
+19, quora-embeddings(version 7/17), 8 days ago by Gena, 5 epochs 15 models, 0.69923, 0.69005
+17, quora-embeddings(version 6/17), 9 days ago by Gena, 5 epochs 10 models, 0.69735, 0.69121
+16, quora-embeddings(version 5/17), 9 days ago by Gena, 5 epochs 5 models, 0.69524, 0.68625
+15, quora-embeddings(version 4/17), 9 days ago by Gena, 5 epochs 3 models, 0.69103, 0.68425
+14, quora-embeddings(version 3/17), 9 days ago by Gena, 10 epochs 3 models, 0.68209, 0.68018
+13, quora-embeddings(version 2/17), 10 days ago by Gena, 7 epochs 3 models, 0.68992, 0.68324
+12, quora-embeddings(version 1/17), 10 days ago by Gena, 3 epochs 3 models, 0.68807, 0.67457
+11, My LSTM Bagging Try(version 6/6), 10 days ago by Gena, 3 models 1 vote 0.33 thresh, 0.64019, 0.64106
+10, Paragram Embeddings(version 5/5), 12 days ago by Gena, dense + dropout, 0.56929, 0.56398
+9, Paragram Embeddings(version 4/5), 12 days ago by Gena, 50 maxlen, 0.56846, 0.57424
+8, Paragram Embeddings(version 3/5), 12 days ago by Gena, para only, 0.57433, 0.57542
+7, My LSTM Bagging Try(version 5/6), 13 days ago by Gena, 10 models 2 vote, 0.64005, 0.62978
+6, My LSTM Bagging Try(version 4/6), 13 days ago by Gena, 50 maxlen, 0.64288, 0.63835
+5, My LSTM Bagging Try(version 3/6), 14 days ago by Gena, 9 epochs 128 batch 40 maxlen, 0.63469, 0.62336
+4, My LSTM Bagging Try(version 2/6), 14 days ago by Gena, 8 epochs 64 batch 3 models 1 vote, 0.64268, 0.63273
+3, My LSTM try(version 3/3), 15 days ago by Gena, logging, 0.63612, 0.63287
+2, My LSTM try(version 2/3), 15 days ago by Gena, single LSTM manual embed, 0.64206, 0.63151
+1, benchmark.py(version 4/4), 22 days ago by Gena, benchmark 3-gram, 0.49038, 0.48258
