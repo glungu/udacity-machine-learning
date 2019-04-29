@@ -6,7 +6,7 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.layers import CuDNNLSTM, CuDNNGRU, LSTM, Dense, Embedding, Bidirectional
 from keras import Sequential
-from keras.models import clone_model
+from keras.models import clone_model, load_model
 from sklearn.metrics import f1_score, accuracy_score
 from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
 
@@ -41,11 +41,11 @@ def preprocess_text(text):
     if text.endswith('?'):
         text = text[:-1]
 
-    specials = ["’", "‘", "´", "`"]
+    specials = ["â€™", "â€˜", "Â´", "`"]
     for s in specials:
         text = text.replace(s, "'")
          
-    contraction_mapping = {"what's":"what is", "What's":"What is", "i'm":"i am", "I'm":"i am", "isn't":"is not", "Isn't":"is not", "i've":"i have", "I've":"i have", "you've":"you have", "aren't":"are not", "Aren't":"are not", "won't":"will not", "Won't":"will not", "they're":"they are", "They're":"they are", "he's":"he is", "He's":"he is", "haven't":"have not", "shouldn't":"should not", "Shouldn't":"should not", "wouldn't":"would not", "Wouldn't":"would not", "who's":"who is", "Who's":"who is", "there's":"there is", "There's":"there is", "wasn't":"was not", "Wasn't":"was not", "she's":"she is", "hasn't":"has not", "Hasn't":"has not", "couldn't":"could not", "we're":"we are", "We're":"we are", "i'll":"i will", "I'll":"i will", "i'd":"i would", "I'd":"i would", "how's":"how is", "How's":"how is", "let's":"let us", "Let's":"let us", "weren't":"were not", "Weren't":"were not", "they've":"they have", "we've":"we have", "We've":"we have", "hadn't":"had not", "Hadn't":"had not", "you'd":"you would", "where's":"where is", "Where's":"where is", "'the":"the", "'The":"the", "'i":"i", "'I":"i", "would've":"would have", "“the":"the", "“The":"the", "“i":"i", "“I":"i","they'll":"they will", "They'll":"they will", "he'll":"he will", "He'll":"he will", "they'd":"they would", "They'd":"they would", "you'":"you ", "etc…":"etc ", "couldn't":"could not", "Couldn't":"could not", "it'll":"it will", "he'd":"he would", "could've":"could have", "Could've":"could have", "we'll":"we will"}
+    contraction_mapping = {"what's":"what is", "What's":"What is", "i'm":"i am", "I'm":"i am", "isn't":"is not", "Isn't":"is not", "i've":"i have", "I've":"i have", "you've":"you have", "aren't":"are not", "Aren't":"are not", "won't":"will not", "Won't":"will not", "they're":"they are", "They're":"they are", "he's":"he is", "He's":"he is", "haven't":"have not", "shouldn't":"should not", "Shouldn't":"should not", "wouldn't":"would not", "Wouldn't":"would not", "who's":"who is", "Who's":"who is", "there's":"there is", "There's":"there is", "wasn't":"was not", "Wasn't":"was not", "she's":"she is", "hasn't":"has not", "Hasn't":"has not", "couldn't":"could not", "we're":"we are", "We're":"we are", "i'll":"i will", "I'll":"i will", "i'd":"i would", "I'd":"i would", "how's":"how is", "How's":"how is", "let's":"let us", "Let's":"let us", "weren't":"were not", "Weren't":"were not", "they've":"they have", "we've":"we have", "We've":"we have", "hadn't":"had not", "Hadn't":"had not", "you'd":"you would", "where's":"where is", "Where's":"where is", "'the":"the", "'The":"the", "'i":"i", "'I":"i", "would've":"would have", "â€œthe":"the", "â€œThe":"the", "â€œi":"i", "â€œI":"i","they'll":"they will", "They'll":"they will", "he'll":"he will", "He'll":"he will", "they'd":"they would", "They'd":"they would", "you'":"you ", "etcâ€¦":"etc ", "couldn't":"could not", "Couldn't":"could not", "it'll":"it will", "he'd":"he would", "could've":"could have", "Could've":"could have", "we'll":"we will"}
     text = multireplace(text, contraction_mapping)
 
     posessive_mappings = {"Trump's":"trump", "trump's":"trump", "Obama's":"obama", "obama's":"obama", "Google's":"google", "google's":"google", "India's":"india", "india's":"india", "Russia's":"russia", "russia's":"russia", "Israel's":"israel", "israel's":"israel", "Korea's":"korea", "korea's":"korea", "China's":"china", "china's":"china", "America's":"america", "america's":"america", "canada's":"canada", "Canada's":"canada", "pakistan's":"pakistan", "Pakistan's":"pakistan", "iran's":"iran", "Iran's":"iran", "japan's":"japan", "Japan's":"japan", "UK's":"uk", "uk's":"uk", "britain's":"britain", "Britain's":"britain", "usa's":"usa", "USA's":"usa", "germany's":"germany", "Germany's":"germany", "australia's":"australia", "Australia's":"australia", "someone's":"someone", "else's":"else", "today's":"today", "people's":"people", "women's":"women", "men's":"men", "world's":"world", "earth's":"earth", "Earth's":"earth", "country's":"country", "person's":"person", "quora's":"quora", "Quora's":"quora", "man's":"man", "woman's":"woman", "God's":"God", "company's":"company", "father's":"father", "mother's":"mother", "child's":"child", "girl's":"girl", "boy's":"boy", "wife's":"wife", "husband's":"husband", "year's":"year", "dog's":"dog", "friend's":"friend", "children's":"children", "driver's":"driver", "government's":"government", "everyone's":"everyone", "girlfriend's":"girlfriend", "boyfriend's":"boyfriend", "other's":"other", "modi's":"modi", "Modi's":"modi", "son's":"son", "daughter's":"daughter", "sister's":"sister", "cat's":"cat", "asperger's":"asperger", "Asperger's":"asperger", "alzheimer's":"alzheimer", "Alzheimer's":"alzheimer", "jehovah's":"jehovah", "Jehovah's":"jehovah", "einstein's":"einstein", "Einstein's":"einstein", "clinton's":"clinton", "Clinton's":"clinton", "king's":"king", "life's":"life", "parents'":"parents", "hitler's":"hitler", "Hitler's":"hitler", "newton's":"newton", "Newton's":"newton", "amazon's":"amazon", "Amazon's":"amazon", "xavier's":"xavier", "Xavier's":"xavier", "king's":"king", "King's":"king", "university's":"university", "University's":"university", "student's":"student", "Putin's":"putin", "putin's":"putin", "mom's":"mom", "baby's":"baby", "guy's":"guy", "president's":"president", "President's":"president", "parent's":"parent", "partner's":"partner", "dad's":"dad", "facebook's":"facebook", "Facebook's":"facebook", "doctor's":"doctor", "car's":"car", "others'":"others", "countries'":"countries", "school's":"school", "family's":"family", "nation's":"nation", "people's":"people", "People's":"people", "party's":"party", "Party's":"party", "jesus's":"jesus", "Jesus's":"jesus"}
@@ -181,22 +181,22 @@ def get_embeddings(embedding_dict, word_index):
         if embedding_vector is not None: 
             embedding_matrix[i] = embedding_vector
             
-    print(get_time(), "Embedding metrix done. Shape:", embedding_matrix.shape)
+    print(get_time(), "Embedding matrix done. Shape:", embedding_matrix.shape)
     return embedding_matrix
 
 
 def get_embeddings_matrices(filepath_glove, filepath_paragram, filepath_wiki, filepath_google, word_index):
     glove = load_embeddings_glove(filepath_glove, word_index)
     paragram = load_embeddings_paragram(filepath_paragram, word_index)
-    #wiki = load_embeddings_wiki(filepath_wiki, word_index)
+    wiki = load_embeddings_wiki(filepath_wiki, word_index)
     #google = load_embeddings_google(filepath_google, word_index)
     
     matrix_glove = get_embeddings(glove, word_index)
     matrix_paragram = get_embeddings(paragram, word_index)
-    #matrix_wiki = get_embeddings(wiki, word_index)
+    matrix_wiki = get_embeddings(wiki, word_index)
     #matrix_google = get_embeddings(google, word_index)
     
-    return [matrix_glove, matrix_paragram]
+    return [matrix_glove, matrix_paragram, matrix_wiki]
 
 
 def get_embeddings_average(embeddings_matrices):
@@ -214,8 +214,8 @@ def get_model_lstm(embedding_matrix):
                         weights=[embedding_matrix], 
                         trainable=False, 
                         input_length=max_length))
-    model.add(Bidirectional(CuDNNLSTM(64, return_sequences=True)))
-    model.add(Bidirectional(CuDNNLSTM(64)))
+    model.add(Bidirectional(LSTM(64, return_sequences=True)))
+    model.add(Bidirectional(LSTM(64)))
     model.add(Dense(1, activation="sigmoid"))
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
@@ -246,7 +246,7 @@ def train_model(model, train_X, train_y, val_X, val_y, test_X, epochs=3, callbac
     best_val_f1 = 0.
     while no_improve_count < 3:
         print(get_time(), 'Epoch ' + str(e+1) + ' started...')
-        h = model.fit(train_X, train_y, batch_size=512, epochs=1, validation_data=(val_X, val_y), callbacks = callback, verbose=0)
+        h = model.fit(train_X, train_y, batch_size=512, epochs=1, validation_data=(val_X, val_y), callbacks = callback, verbose=1)
         predicted_val = model.predict([val_X], batch_size=1024, verbose=0)
 
         val_f1 = f1_score(val_y, (predicted_val > threshold).astype(int))
@@ -265,7 +265,7 @@ def train_model(model, train_X, train_y, val_X, val_y, test_X, epochs=3, callbac
             best_val_f1 = val_f1
 
     predicted_test = model.predict([test_X], batch_size=1024, verbose=0)
-    return predicted_test, best_val_f1
+    return predicted_test, best_val_f1, model
 
 
 def do_train(embedding_matrices, train_X, train_y, test_X):
@@ -286,10 +286,10 @@ def do_train(embedding_matrices, train_X, train_y, test_X):
         #model = get_model_lstm(embedding_matrix) if idx % 2 == 0 else get_model_gru(embedding_matrix)
         #embedding_matrix = get_embeddings_average(embedding_matrices)
         model = get_model_lstm(embedding_matrix)
-        predicted, val_f1 = train_model(model,
-                                        X_train, y_train, X_val, y_val, test_X, 
-                                        epochs=num_epochs, 
-                                        callback=None)
+        predicted, val_f1, model = train_model(model,
+                   X_train, y_train, X_val, y_val, test_X, 
+                   epochs=num_epochs, 
+                   callback=None)
         if len(predicted_list) < num_models_best:
             predicted_list.append((predicted[:,0], val_f1))
         elif val_f1 > predicted_list[0][1]:
@@ -297,7 +297,9 @@ def do_train(embedding_matrices, train_X, train_y, test_X):
         predicted_list = sorted(predicted_list, key=lambda x: x[1])
 
         print(get_time(), 'Model #' + str(idx+1) + ' of ' + str(num_models) + ' completed')
-
+        model.save('model_' + str(idx+1) + '.h5')
+        print(get_time(), 'Model #' + str(idx+1) + ' of ' + str(num_models) + ' saved')
+        
     print(get_time(), 'Best models:', [f1 for _,f1 in predicted_list])
     for predicted,_ in predicted_list:
         predicted_test += predicted
@@ -311,18 +313,44 @@ def do_submission(df_test, predicted_test, filepath):
     df_test['prediction'] = (predicted_test > threshold).astype(int)
     df_test.to_csv(filepath, columns=['qid','prediction'], index=False)
     print(get_time(), 'Completed submission')
+
+
+def do_predict(test_X):
+    global num_models
+    predicted_test = np.zeros(test_X.shape[0])
+    for i in range(num_models):
+        model = load_model('model/model_' + str(i+1) + '.h5')
+        print(get_time(), "Model " + str(i+1) + " loaded")
+        predicted = model.predict([test_X], batch_size=1024, verbose=0)
+        predicted_test += predicted[:,0]
+        print(get_time(), "Model " + str(i+1) + " predictions done")
+    predicted_test /= num_models
+    return predicted_test
     
 
+def main_train_submit():
+    dirpath = os.path.realpath('./input')
+    filepath_data_train = os.path.join(dirpath, 'train.csv')
+    filepath_data_test = os.path.join(dirpath, 'test.csv')
+    filepath_embeddings_glove = os.path.join(dirpath, 'embeddings/glove.840B.300d/glove.840B.300d.txt')
+    filepath_embeddings_paragram = os.path.join(dirpath, 'embeddings/paragram_300_sl999/paragram_300_sl999.txt')
+    filepath_embeddings_wiki = os.path.join(dirpath, 'embeddings/wiki-news-300d-1M/wiki-news-300d-1M.vec')
+    filepath_embeddings_google = os.path.join(dirpath, 'embeddings/GoogleNews-vectors-negative300/GoogleNews-vectors-negative300.bin')
 
-dirpath = os.path.realpath('../input')
-filepath_data_train = os.path.join(dirpath, 'train.csv')
-filepath_data_test = os.path.join(dirpath, 'test.csv')
-filepath_embeddings_glove = os.path.join(dirpath, 'embeddings/glove.840B.300d/glove.840B.300d.txt')
-filepath_embeddings_paragram = os.path.join(dirpath, 'embeddings/paragram_300_sl999/paragram_300_sl999.txt')
-filepath_embeddings_wiki = os.path.join(dirpath, 'embeddings/wiki-news-300d-1M/wiki-news-300d-1M.vec')
-filepath_embeddings_google = os.path.join(dirpath, 'embeddings/GoogleNews-vectors-negative300/GoogleNews-vectors-negative300.bin')
+    sequences_train, targets_train, sequences_test, df_test, word_index = init(filepath_data_train, filepath_data_test)
+    embedding_matrices = get_embeddings_matrices(filepath_embeddings_glove, filepath_embeddings_paragram, filepath_embeddings_wiki, filepath_embeddings_google, word_index)
+    predicted_test = do_train(embedding_matrices, sequences_train, targets_train, sequences_test)
+    do_submission(df_test, predicted_test, 'submission.csv')
 
-sequences_train, targets_train, sequences_test, df_test, word_index = init(filepath_data_train, filepath_data_test)
-embedding_matrices = get_embeddings_matrices(filepath_embeddings_glove, filepath_embeddings_paragram, filepath_embeddings_wiki, filepath_embeddings_google, word_index)
-predicted_test = do_train(embedding_matrices, sequences_train, targets_train, sequences_test)
-do_submission(df_test, predicted_test, 'submission.csv')
+
+def main_predict():
+    dirpath = os.path.realpath('./input')
+    filepath_data_train = os.path.join(dirpath, 'train.csv')
+    filepath_data_test = os.path.join(dirpath, 'predictions_input.csv')
+
+    _, _, sequences_test, df_test, _ = init(filepath_data_train, filepath_data_test)
+    predicted_test = do_predict(sequences_test)
+    do_submission(df_test, predicted_test, 'predictions_output.csv')
+
+
+main_predict()
